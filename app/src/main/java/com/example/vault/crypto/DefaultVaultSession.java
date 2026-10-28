@@ -13,7 +13,7 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-public class DefaultVaultSession implements VaultSession {
+public class DefaultVaultSession implements VaultSession, VaultKeyProvider {
     static final String PREF_SALT = "vault.salt";
     static final String PREF_ITERATIONS = "vault.iterations";
     static final String PREF_WRAPPED_KEY = "vault.wrapped_key";
@@ -150,6 +150,21 @@ public class DefaultVaultSession implements VaultSession {
             vaultKeyBytes = null;
         }
         publishUnlocked(false);
+    }
+
+    @Override
+    public synchronized <T> T withVaultKey(VaultKeyOperation<T> operation) throws VaultLockedException {
+        if (vaultKeyBytes == null) {
+            throw new VaultLockedException();
+        }
+        SecretKey key = new SecretKeySpec(vaultKeyBytes, "AES");
+        try {
+            return operation.execute(key);
+        } catch (RuntimeException runtimeException) {
+            throw runtimeException;
+        } catch (Exception exception) {
+            throw new IllegalStateException("Vault key operation failed", exception);
+        }
     }
 
     SecretKey currentVaultKey() {
