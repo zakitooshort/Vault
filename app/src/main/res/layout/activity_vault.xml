@@ -5,15 +5,16 @@
     android:orientation="vertical"
     android:padding="24dp">
     <TextView
+        android:id="@+id/emptyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vault"
+        android:text="Vault entries"
         android:textSize="24sp" />
-    <Button
-        android:id="@+id/entryButton"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/entryList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Open example entry" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
     <Button
         android:id="@+id/addEntryButton"
         android:layout_width="match_parent"

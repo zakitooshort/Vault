@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.activity.ktx)
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
+    implementation(libs.recyclerview)
     implementation(libs.material)
     implementation(libs.lifecycle.livedata)
     implementation(libs.lifecycle.viewmodel)
