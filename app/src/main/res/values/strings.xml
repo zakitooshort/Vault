@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Vault</string>
+    <string name="create_vault">Create your vault</string>
+    <string name="master_password">Master password</string>
+    <string name="confirm_master_password">Confirm master password</string>
+    <string name="continue_button">Create vault</string>
 </resources>
