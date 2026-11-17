@@ -31,6 +31,12 @@ public class DefaultVaultSession implements VaultSession, VaultKeyProvider {
     }
 
     @Override
+    public boolean hasVault() {
+        return preferences.contains(PREF_WRAPPED_KEY)
+                && preferences.contains(PREF_SALT);
+    }
+
+    @Override
     public LiveData<Boolean> isUnlocked() {
         return unlocked;
     }

@@ -9,6 +9,12 @@ import javax.crypto.Cipher;
 
 public class FakeVaultSession implements VaultSession {
     private final MutableLiveData<Boolean> unlocked = new MutableLiveData<>(false);
+    private boolean hasVault;
+
+    @Override
+    public boolean hasVault() {
+        return hasVault;
+    }
 
     @Override
     public LiveData<Boolean> isUnlocked() {
@@ -17,6 +23,7 @@ public class FakeVaultSession implements VaultSession {
 
     @Override
     public void createVault(char[] masterPassword) {
+        hasVault = true;
         unlocked.setValue(true);
     }
 
