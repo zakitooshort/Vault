@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import javax.crypto.Cipher;
 
 public interface VaultSession {
+    boolean hasVault();
     LiveData<Boolean> isUnlocked();
     void createVault(char[] masterPassword);
     boolean unlockWithPassword(char[] masterPassword);

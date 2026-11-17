@@ -4,4 +4,15 @@
     <string name="master_password">Master password</string>
     <string name="confirm_master_password">Confirm master password</string>
     <string name="continue_button">Create vault</string>
+    <string name="entry_title_label">Title</string>
+    <string name="entry_username_label">Username</string>
+    <string name="entry_password_label">Password</string>
+    <string name="entry_url_label">URL</string>
+    <string name="entry_notes_label">Notes</string>
+    <string name="copy_password">Copy password</string>
+    <string name="delete_entry">Delete entry</string>
+    <string name="search_entries">Search by title or username</string>
+    <string name="lock_vault">Lock vault</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
 </resources>

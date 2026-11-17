@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         vaultSession = ServiceLocator.getInstance().getVaultSession();
+        if (vaultSession.hasVault()) {
+            startActivity(new Intent(this, LockActivity.class));
+            finish();
+            return;
+        }
         binding.continueButton.setOnClickListener(v -> createVault());
         ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
