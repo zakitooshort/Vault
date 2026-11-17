@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 
 import com.example.vault.data.VaultEntry;
 import com.example.vault.databinding.ActivityEntryDetailBinding;
@@ -23,6 +24,7 @@ public class EntryDetailActivity extends AppCompatActivity {
     private final Handler clipboardHandler = new Handler(Looper.getMainLooper());
     private String entryId;
     private String currentPassword;
+    private boolean passwordVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,10 @@ public class EntryDetailActivity extends AppCompatActivity {
             return;
         }
         binding.copyPasswordButton.setOnClickListener(v -> copyPassword());
+        binding.togglePasswordButton.setOnClickListener(v -> {
+            passwordVisible = !passwordVisible;
+            updatePasswordVisibility(binding);
+        });
         binding.deleteEntryButton.setOnClickListener(v -> deleteEntry());
         ServiceLocator.getInstance().getVaultRepository().getEntry(entryId, entry -> {
             runOnUiThread(() -> showEntry(binding, entry));
@@ -57,6 +63,18 @@ public class EntryDetailActivity extends AppCompatActivity {
         binding.urlText.setText(entry.getUrl());
         binding.notesText.setText(entry.getNotes());
         currentPassword = entry.getPassword();
+        updatePasswordVisibility(binding);
+    }
+
+    private void updatePasswordVisibility(ActivityEntryDetailBinding binding) {
+        if (passwordVisible) {
+            binding.passwordText.setTransformationMethod(null);
+            binding.togglePasswordButton.setText(R.string.hide_password);
+        } else {
+            binding.passwordText.setTransformationMethod(
+                    PasswordTransformationMethod.getInstance());
+            binding.togglePasswordButton.setText(R.string.show_password);
+        }
     }
 
     private void copyPassword() {

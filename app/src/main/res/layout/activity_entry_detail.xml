@@ -54,6 +54,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/copy_password" />
+        <Button
+            android:id="@+id/togglePasswordButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/show_password" />
 
         <TextView
             android:id="@+id/urlLabel"

@@ -11,4 +11,8 @@
     <string name="entry_notes_label">Notes</string>
     <string name="copy_password">Copy password</string>
     <string name="delete_entry">Delete entry</string>
+    <string name="search_entries">Search by title or username</string>
+    <string name="lock_vault">Lock vault</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
 </resources>

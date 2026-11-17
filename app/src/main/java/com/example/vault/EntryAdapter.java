@@ -18,16 +18,33 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHol
     }
 
     private final OnEntryClickListener listener;
-    private final List<VaultEntry> entries = new ArrayList<>();
+    private final List<VaultEntry> allEntries = new ArrayList<>();
+    private final List<VaultEntry> visibleEntries = new ArrayList<>();
 
     public EntryAdapter(OnEntryClickListener listener) {
         this.listener = listener;
     }
 
     public void submitList(List<VaultEntry> newEntries) {
-        entries.clear();
+        allEntries.clear();
         if (newEntries != null) {
-            entries.addAll(newEntries);
+            allEntries.addAll(newEntries);
+        }
+        filter("");
+    }
+
+    public void filter(String query) {
+        String normalizedQuery = query == null ? "" : query.trim().toLowerCase();
+        visibleEntries.clear();
+        for (VaultEntry entry : allEntries) {
+            String title = entry.getTitle() == null ? "" : entry.getTitle().toLowerCase();
+            String username = entry.getUsername() == null
+                    ? "" : entry.getUsername().toLowerCase();
+            if (normalizedQuery.isEmpty()
+                    || title.contains(normalizedQuery)
+                    || username.contains(normalizedQuery)) {
+                visibleEntries.add(entry);
+            }
         }
         notifyDataSetChanged();
     }
@@ -42,12 +59,12 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.EntryViewHol
 
     @Override
     public void onBindViewHolder(@NonNull EntryViewHolder holder, int position) {
-        holder.bind(entries.get(position));
+        holder.bind(visibleEntries.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return entries.size();
+        return visibleEntries.size();
     }
 
     class EntryViewHolder extends RecyclerView.ViewHolder {
